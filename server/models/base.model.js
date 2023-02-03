@@ -7,14 +7,19 @@ class BaseModel {
     this.model = mongoose.model(name, schema);
   }
 
-  get(id) {
-    let query = this.model.findById(id);
-    return query.exec();
+  async get(id) {
+    const result = await this.model.findById(id);
+    return result;
   }
 
-  getAll() {
-    let query = this.model.find();
-    return query.exec();
+  async getAll() {
+    const result = await this.model.find();
+    return result;
+  }
+
+  async getByLabel(label) {
+    const result = await this.model.find({ label: label });
+    return result;
   }
 
   create(data) {
@@ -22,8 +27,8 @@ class BaseModel {
     return result;
   }
 
-  delete(id) {
-    let result = this.model.deleteOne({ _id: id });
+  async delete(id) {
+    let result = await this.model.findByIdAndDelete(id);
     return result;
   }
 }
