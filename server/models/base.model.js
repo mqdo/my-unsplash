@@ -13,12 +13,13 @@ class BaseModel {
   }
 
   async getAll() {
-    const result = await this.model.find();
+    const result = await this.model.find().sort({ date: -1 });
     return result;
   }
 
   async getByLabel(label) {
-    const result = await this.model.find({ label: label });
+    const regex = new RegExp(label, 'g');
+    const result = await this.model.find({ label: regex });
     return result;
   }
 
